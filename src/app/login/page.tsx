@@ -37,12 +37,12 @@ export default async function LoginPage({
         LinkedIn data you approve.
       </p>
 
-      <p>
-        Organiser User <br/>
+      <p className="mt-6 max-w-sm text-center text-xs text-orange-400">
+        Organiser ->
 
 username: admin@evenner.app password: Admin@1357
         <br/>
-Attendee User <br/>
+Attendee -> 
 
 username: yoldas.ahmet@hotmail.com password: Admin@1357
       </p>
