@@ -84,6 +84,10 @@ create profile:` for the underlying Postgres error.
 - [`AGENTS.md`](AGENTS.md) — repo conventions and project map for coding agents.
 - [`SKILL.md`](SKILL.md) — spec for evenner's in-product AI agent.
 
+## Organiser User
+username: admin@evenner.app
+password: Admin@1357
+
 ## License
 
 MIT © 2026 — see [LICENSE](LICENSE).
