@@ -40,7 +40,7 @@ export default async function LoginPage({
       <p className="mt-6 max-w-sm text-center text-xs text-orange-400">
         Organiser <br/>
 
-username: admin@evenner.app password: Admin@1357
+username: ahmet@evenner.app password: Admin@1357
         <br/>
 Attendee <br/>
 
