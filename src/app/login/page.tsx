@@ -36,6 +36,16 @@ export default async function LoginPage({
         By continuing you agree to evenner&apos;s terms. We only request the
         LinkedIn data you approve.
       </p>
+
+      <p>
+        Organiser User <br/>
+
+username: admin@evenner.app password: Admin@1357
+        <br/>
+Attendee User <br/>
+
+username: yoldas.ahmet@hotmail.com password: Admin@1357
+      </p>
     </div>
   );
 }
