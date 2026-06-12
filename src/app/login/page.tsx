@@ -38,11 +38,11 @@ export default async function LoginPage({
       </p>
 
       <p className="mt-6 max-w-sm text-center text-xs text-orange-400">
-        Organiser ->
+        Organiser <br/>
 
 username: admin@evenner.app password: Admin@1357
         <br/>
-Attendee -> 
+Attendee <br/>
 
 username: yoldas.ahmet@hotmail.com password: Admin@1357
       </p>
