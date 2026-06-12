@@ -88,6 +88,10 @@ create profile:` for the underlying Postgres error.
 username: admin@evenner.app
 password: Admin@1357
 
+## Attendee User
+username: yoldas.ahmet@hotmail.com
+password: Admin@1357
+
 ## License
 
 MIT © 2026 — see [LICENSE](LICENSE).
