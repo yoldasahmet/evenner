@@ -41,7 +41,7 @@ export default function LoginForm({ next }: { next?: string }) {
       <Button
         themeColor="primary"
         size="large"
-        disabled={linkedinLoading}
+        disabled={true}
         onClick={signInWithLinkedIn}
       >
         {linkedinLoading ? "Connecting…" : "Continue with LinkedIn"}
