@@ -1,5 +1,12 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import {
+  SUPABASE_ANON_KEY,
+  SUPABASE_URL,
+  createStubClient,
+  isSupabaseConfigured,
+  warnNotConfigured,
+} from "./stub";
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
@@ -8,11 +15,16 @@ type CookieToSet = { name: string; value: string; options: CookieOptions };
  * Bridges Supabase's auth cookies to Next.js' cookie store.
  */
 export function createClient() {
+  if (!isSupabaseConfigured) {
+    warnNotConfigured();
+    return createStubClient<ReturnType<typeof createServerClient>>();
+  }
+
   const cookieStore = cookies();
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {

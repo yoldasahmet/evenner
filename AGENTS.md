@@ -75,7 +75,8 @@ src/
                           SessionDetail, SponsorsSection + SponsorCard, PrizeSection
     illustrations/        Inline SVG cartoons (OnboardingHero, EventHeroArt)
   lib/
-    supabase/             client / server / middleware helpers
+    supabase/             client / server / middleware helpers; stub.ts =
+                          offline no-op client used when env keys are unset
     types.ts              Database-row domain models
     event-view.ts         Presentation view-models (EventDetail/Summary) + helpers
     events.ts             Loader: merges demo + DB events
@@ -86,6 +87,9 @@ src/
     sponsor-info.ts       Editorial sponsor detail (industry/products) by name
     onboarding-questions.ts  The AI agent interview questions (name, profession,
                           goal + tech-interest questions; some multi-select)
+docs/images/              README screenshots
+.github/                  CI workflow, issue + PR templates
+.env.example              All supported env vars (app runs without them)
 supabase/migrations/      0001 schema · 0002 RLS · 0003 events+sessions ·
                           0004 profile auto-create trigger + backfill ·
                           0005 evenns · 0006 live · 0007 db data ·
