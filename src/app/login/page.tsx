@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { isSupabaseConfigured } from "@/lib/supabase/stub";
 import LoginForm from "@/components/auth/LoginForm";
 
 // Auth entry point. If already signed in, skip straight into the app.
@@ -27,6 +28,13 @@ export default async function LoginPage({
           Sign in with LinkedIn or your email and password.
         </p>
 
+        {!isSupabaseConfigured && (
+          <p className="mt-4 rounded-lg bg-amber-50 p-3 text-xs text-amber-800">
+            Sign-in is disabled: Supabase isn&apos;t configured. Add your keys
+            to <code>.env.local</code> (see <code>.env.example</code>).
+          </p>
+        )}
+
         <div className="mt-6">
           <LoginForm next={searchParams.next} />
         </div>
@@ -35,16 +43,6 @@ export default async function LoginPage({
       <p className="mt-6 max-w-sm text-center text-xs text-gray-400">
         By continuing you agree to evenner&apos;s terms. We only request the
         LinkedIn data you approve.
-      </p>
-
-      <p className="mt-6 max-w-sm text-center text-xs text-orange-400">
-        Organiser <br/>
-
-username: ahmet@evenner.app password: Admin@1357
-        <br/>
-Attendee <br/>
-
-username: yoldas.ahmet@hotmail.com password: Admin@1357
       </p>
     </div>
   );

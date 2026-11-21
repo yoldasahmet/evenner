@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { SUPABASE_ANON_KEY, SUPABASE_URL, isSupabaseConfigured } from "./stub";
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
@@ -13,9 +14,21 @@ const PROTECTED_PREFIXES = ["/onboarding", "/profile", "/organiser", "/attendee"
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
+  // No Supabase keys yet: skip session refresh, treat everyone as signed out.
+  if (!isSupabaseConfigured) {
+    const { pathname } = request.nextUrl;
+    if (PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("next", pathname);
+      return NextResponse.redirect(url);
+    }
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {

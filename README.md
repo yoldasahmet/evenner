@@ -2,13 +2,18 @@
 
 > Your agentic event planner.
 
+[![CI](https://github.com/yoldasahmet/evenner/actions/workflows/ci.yml/badge.svg)](https://github.com/yoldasahmet/evenner/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-violet.svg)](LICENSE)
+
+![evenner landing page — "Every tech event, made yours."](docs/images/landing.jpg)
+
 A mobile-first event planner built with **Next.js (App Router)**,
 **KendoReact**, **Tailwind CSS** and **Supabase**. An AI agent learns about
 each user during onboarding to help them discover, organise and run events.
 
 ## Features
 
-- 🔐 Auth via **LinkedIn** (OIDC, with consent) or passwordless email magic link
+- 🔐 Auth via **LinkedIn** (OIDC, with consent) or email + password
 - 🧭 Post-login **AI onboarding** interview that profiles the user and sets their role
 - 👥 **Two role templates** — attendees (Events · My hub · Profile) and
   organisers (Organise · Profile) — chosen from the onboarding answers
@@ -25,7 +30,7 @@ each user during onboarding to help them discover, organise and run events.
 npm install
 
 # 2. Configure environment
-cp .env.example .env.local   # then fill in your Supabase keys
+cp .env.example .env.local   # then fill in your Supabase keys (optional, see below)
 
 # 3. Apply the database schema — run ALL migrations, in order
 #    Supabase CLI:  supabase db push
@@ -38,6 +43,18 @@ cp .env.example .env.local   # then fill in your Supabase keys
 npm run dev                  # http://localhost:3000
 ```
 
+### Offline mode
+
+No keys yet? The app still boots. Without `NEXT_PUBLIC_SUPABASE_URL` /
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` it uses a no-op client
+(`src/lib/supabase/stub.ts`): public pages render, everyone is signed out,
+private routes redirect to `/login`, and sign-in shows a "not configured"
+notice. Add the keys and restart to enable auth and data.
+
+To try both roles, create two users in **Supabase → Authentication → Users**
+and answer *"Organise my own events"* vs *"Discover events to attend"* to
+the onboarding goal question.
+
 ## Configuration
 
 Set these in `.env.local` (see `.env.example`):
@@ -47,7 +64,14 @@ Set these in `.env.local` (see `.env.example`):
 | `NEXT_PUBLIC_SUPABASE_URL`      | Supabase project URL                   |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/public key               |
 | `NEXT_PUBLIC_SITE_URL`          | Origin used for OAuth redirects        |
+| `LLM_PROVIDER`                  | Optional: `anthropic` / `openai` / `openrouter` / `local` |
+| `ANTHROPIC_API_KEY`             | Optional: Claude for the AI agent      |
+| `OPENAI_API_KEY`, `OPENAI_MODEL` | Optional: OpenAI for the AI agent     |
+| `OPENROUTER_API_KEY`, `OPENROUTER_MODEL` | Optional: OpenRouter for the AI agent |
 | `KENDO_UI_LICENSE`              | Optional KendoReact license (no watermark) |
+
+With no LLM key the agent falls back to a local heuristic. Keep LLM keys
+server-side only — never prefix them with `NEXT_PUBLIC_`.
 
 ### Enabling LinkedIn login
 
@@ -84,13 +108,10 @@ create profile:` for the underlying Postgres error.
 - [`AGENTS.md`](AGENTS.md) — repo conventions and project map for coding agents.
 - [`SKILL.md`](SKILL.md) — spec for evenner's in-product AI agent.
 
-## Organiser User
-username: admin@evenner.app
-password: Admin@1357
+## Contributing
 
-## Attendee User
-username: yoldas.ahmet@hotmail.com
-password: Admin@1357
+Contributions are welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md). Please
+report security issues privately as described in [`SECURITY.md`](SECURITY.md).
 
 ## License
 
